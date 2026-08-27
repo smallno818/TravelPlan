@@ -179,8 +179,8 @@ export default function ItineraryPage() {
     <main>
       <div className="notion-cover"></div>
       <div className="notion-page">
-        <div className="notion-icon-wrapper">✈️</div>
-        <h1 className="notion-title">{currentItinerary?.title || '旅程檢視'}</h1>
+        {/* 已在此處移除標題上方的圖示容器 */}
+        <h1 className="notion-title" style={{ marginTop: '0px' }}>{currentItinerary?.title || '旅程檢視'}</h1>
 
         <div className="notion-controls">
           <select 
@@ -240,7 +240,6 @@ export default function ItineraryPage() {
                                 {displayTime}
                               </span>
                             )}
-                            {/* 交通方式標籤：已移除所有圖示，僅顯示純文字 */}
                             {event.transportation && (
                               <span className="notion-tag">
                                 {event.transportation}

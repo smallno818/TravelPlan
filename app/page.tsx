@@ -122,7 +122,12 @@ export default function ItineraryPage() {
               dateString: dateString,
               events: events
                 .filter((event: any) => event.event_date === dateStr)
-                .sort((a: any, b: any) => (a.start_time || '').localeCompare(b.start_time || ''))
+                // 👇 修復：改進排序邏輯。若無 start_time 則以 end_time 排序，皆無則排在最後面
+                .sort((a: any, b: any) => {
+                  const timeA = a.start_time || a.end_time || '99:99';
+                  const timeB = b.start_time || b.end_time || '99:99';
+                  return timeA.localeCompare(timeB);
+                })
                 .map((e: any) => ({
                   start_time: e.start_time || '',
                   end_time: e.end_time || '',
@@ -194,7 +199,6 @@ export default function ItineraryPage() {
 
         {currentItinerary && currentItinerary.days.length > 0 && (
           <div>
-            {/* 新增：手機版專屬的滑動提示，大螢幕時會自動隱藏 */}
             <div className="mobile-scroll-hint">
               <i className="fa-solid fa-left-right"></i> 左右滑動查看其他天數
             </div>
@@ -212,6 +216,8 @@ export default function ItineraryPage() {
                     let displayTime = event.start_time;
                     if (event.start_time && event.end_time) {
                       displayTime = `${event.start_time} - ${event.end_time}`;
+                    } else if (!event.start_time && event.end_time) {
+                      displayTime = `~ ${event.end_time}`;
                     }
                     
                     const uniqueNoteId = `${day.dayNumber}-${index}`;

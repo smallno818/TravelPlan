@@ -207,30 +207,7 @@ export default function ItineraryPage() {
           marginBottom: '24px',
           alignItems: 'center'
         }}>
-          <a 
-            href={`/reference?id=${selectedItineraryId}`} 
-            style={{ color: '#37352f', textDecoration: 'none', fontSize: '0.9em', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}
-          >
-            <span>💳</span> 花費
-          </a>
-          <a 
-            href={`/reference?id=${selectedItineraryId}`} 
-            style={{ color: '#37352f', textDecoration: 'none', fontSize: '0.9em', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}
-          >
-            <span>🧳</span> 行李準備
-          </a>
-          <a 
-            href={`/reference?id=${selectedItineraryId}`} 
-            style={{ color: '#37352f', textDecoration: 'none', fontSize: '0.9em', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}
-          >
-            <span>🛒</span> 購買清單
-          </a>
-          <a 
-            href={`/reference?id=${selectedItineraryId}`} 
-            style={{ color: '#37352f', textDecoration: 'none', fontSize: '0.9em', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}
-          >
-            <span>📍</span> 地圖
-          </a>
+          
           <a 
             href={`/reference?id=${selectedItineraryId}`} 
             style={{ color: '#37352f', textDecoration: 'none', fontSize: '0.9em', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}

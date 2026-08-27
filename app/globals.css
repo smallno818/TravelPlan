@@ -80,6 +80,10 @@ body {
   overflow-x: auto;
   padding-bottom: 20px;
   align-items: flex-start;
+
+  /* 👇 新增：開啟橫向強制吸附效果 */
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; /* 讓 iOS 裝置滑動更流暢 */
 }
 
 .notion-board-container::-webkit-scrollbar {
@@ -106,6 +110,8 @@ body {
   padding: 12px; /* 讓背景與內部的卡片之間產生留白空間 */
   border-radius: 8px; /* 外框柔和的圓角 */
   border: 1px solid var(--notion-border); /* 非常細微的邊框 */
+
+  scroll-snap-align: center;
 }
 
 .notion-board-header {

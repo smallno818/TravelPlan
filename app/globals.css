@@ -98,22 +98,27 @@ body {
 }
 
 .notion-board-column {
-  min-width: 280px; /* 稍微加寬 20px 以容納內部的留白 */
-  max-width: 280px;
-  flex-shrink: 0; /* 保持原樣：防止欄位被壓縮 */
+  /* 彈性調整基礎寬度，從原本的 280px 稍微加寬至 320px */
+  flex: 0 0 320px; 
   display: flex;
   flex-direction: column;
   gap: 12px;
   
-  /* 👇 以下是新增的淡色背景包圍設定 */
-  background-color: #f9fcfa; /* Notion 風格的極淡灰色背景 */
-  padding: 12px; /* 讓背景與內部的卡片之間產生留白空間 */
-  border-radius: 8px; /* 外框柔和的圓角 */
-  border: 1px solid var(--notion-border); /* 非常細微的邊框 */
+  /* Notion 風格的背景與外框設定保留不變 */
+  background-color: #f9fcfa; 
+  padding: 12px; 
+  border-radius: 8px; 
+  border: 1px solid var(--notion-border); 
 
   scroll-snap-align: center;
 }
 
+/* 針對手機等小螢幕裝置的寬度優化：自動改為佔據畫面寬度的 85% */
+@media (max-width: 480px) {
+  .notion-board-column {
+    flex: 0 0 85vw; 
+  }
+}
 .notion-board-header {
   display: inline-block;
   background-color: #d1fae5;

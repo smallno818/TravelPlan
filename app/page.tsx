@@ -179,7 +179,6 @@ export default function ItineraryPage() {
     <main>
       <div className="notion-cover"></div>
       <div className="notion-page">
-        {/* 已在此處移除標題上方的圖示容器 */}
         <h1 className="notion-title" style={{ marginTop: '0px' }}>{currentItinerary?.title || '旅程檢視'}</h1>
 
         <div className="notion-controls">
@@ -194,6 +193,50 @@ export default function ItineraryPage() {
               </option>
             ))}
           </select>
+        </div>
+
+        {/* 仿照 Notion 參考圖的橫向靜態選單列 */}
+        <div style={{ 
+          display: 'flex', 
+          flexWrap: 'wrap', 
+          gap: '16px', 
+          padding: '12px 16px', 
+          background: '#f7f6f3', 
+          border: '1px solid #e1dfdd', 
+          borderRadius: '6px',
+          marginBottom: '24px',
+          alignItems: 'center'
+        }}>
+          <a 
+            href={`/reference?id=${selectedItineraryId}`} 
+            style={{ color: '#37352f', textDecoration: 'none', fontSize: '0.9em', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}
+          >
+            <span>💳</span> 花費
+          </a>
+          <a 
+            href={`/reference?id=${selectedItineraryId}`} 
+            style={{ color: '#37352f', textDecoration: 'none', fontSize: '0.9em', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}
+          >
+            <span>🧳</span> 行李準備
+          </a>
+          <a 
+            href={`/reference?id=${selectedItineraryId}`} 
+            style={{ color: '#37352f', textDecoration: 'none', fontSize: '0.9em', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}
+          >
+            <span>🛒</span> 購買清單
+          </a>
+          <a 
+            href={`/reference?id=${selectedItineraryId}`} 
+            style={{ color: '#37352f', textDecoration: 'none', fontSize: '0.9em', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}
+          >
+            <span>📍</span> 地圖
+          </a>
+          <a 
+            href={`/reference?id=${selectedItineraryId}`} 
+            style={{ color: '#37352f', textDecoration: 'none', fontSize: '0.9em', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}
+          >
+            <span>🔗</span> 參考連結
+          </a>
         </div>
 
         {currentItinerary && currentItinerary.days.length > 0 && (

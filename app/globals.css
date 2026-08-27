@@ -1,26 +1,187 @@
-@import "tailwindcss";
+/* 檔案路徑：app/globals.css */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --notion-bg: #ffffff;
+  --notion-text: #37352f;
+  --notion-text-muted: #787774;
+  --notion-border: #e9e9e7;
+  --notion-hover: #efefe9;
+  
+  /* 看板日期專用背景 */
+  --notion-board-header-bg: #e5f4e7;
+  --notion-board-header-text: #37352f;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  background-color: var(--notion-bg);
+  color: var(--notion-text);
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+/* === 頁面頂部區塊 === */
+.notion-page {
+  max-width: 1200px; 
+  margin: 0 auto;
+  padding: 0 40px 100px 40px;
+}
+
+.notion-cover {
+  height: 30vh;
+  min-height: 200px;
+  background-color: #f1f1ef;
+  background-image: url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200&q=80');
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 0px;
+}
+
+.notion-icon-wrapper {
+  font-size: 78px;
+  line-height: 1.1;
+  margin-left: 2px;
+  color: #9ca3af;
+}
+
+.notion-title {
+  font-size: 2.5em;
+  font-weight: 700;
+  margin: 10px 0 30px 0;
+  letter-spacing: -0.02em;
+}
+
+/* === 控制區塊 === */
+.notion-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--notion-border);
+}
+
+.notion-select {
+  border: 1px solid var(--notion-border);
+  background-color: transparent;
+  color: var(--notion-text);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+  max-width: 300px;
+}
+
+/* === 看板視圖區塊 === */
+.notion-board-container {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 20px;
+  align-items: flex-start;
+}
+
+.notion-board-container::-webkit-scrollbar {
+  height: 8px;
+}
+.notion-board-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+.notion-board-container::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 4px;
+}
+
+.notion-board-column {
+  min-width: 280px; /* 稍微加寬 20px 以容納內部的留白 */
+  max-width: 280px;
+  flex-shrink: 0; /* 保持原樣：防止欄位被壓縮 */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  
+  /* 👇 以下是新增的淡色背景包圍設定 */
+  background-color: #f9fcfa; /* Notion 風格的極淡灰色背景 */
+  padding: 12px; /* 讓背景與內部的卡片之間產生留白空間 */
+  border-radius: 8px; /* 外框柔和的圓角 */
+  border: 1px solid var(--notion-border); /* 非常細微的邊框 */
+}
+
+.notion-board-header {
+  display: inline-block;
+  background-color: #d1fae5;
+  color: #065f46;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 0.85em;
+  font-weight: 600;
+  margin-bottom: 5px;
+  align-self: flex-start;
+}
+
+/* === 卡片設計 === */
+.notion-card {
+  border: 1px solid var(--notion-border);
+  border-radius: 6px;
+  background-color: var(--notion-bg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: box-shadow 0.2s ease;
+}
+
+.notion-card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.notion-card-image {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-bottom: 1px solid var(--notion-border);
+}
+
+.notion-card-content {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.notion-card-title {
+  margin: 0;
+  font-size: 0.95em;
+  font-weight: 600;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+/* === 簡化版標籤設計 === */
+.notion-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.notion-tag {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75em;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border: 1px solid #e5e7eb;
+}
+
+.notion-meta {
+  font-size: 0.8em;
+  color: var(--notion-text-muted);
+  margin: 4px 0 0 0;
+  line-height: 1.4;
 }

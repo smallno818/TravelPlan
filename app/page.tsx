@@ -29,11 +29,11 @@ interface Itinerary {
 
 const getCategoryStyle = (category: string) => {
   switch (category) {
-    case '交通': return { icon: 'fa-train' };
-    case '景點': return { icon: 'fa-camera' };
-    case '美食': return { icon: 'fa-utensils' };
-    case '住宿': return { icon: 'fa-bed' };
-    default: return { icon: 'fa-map-pin' };
+    case '交通': return { icon: '🚅' };
+    case '景點': return { icon: '📷' };
+    case '美食': return { icon: '🍽️' };
+    case '住宿': return { icon: '🏨' };
+    default: return { icon: '📍' };
   }
 };
 
@@ -122,7 +122,6 @@ export default function ItineraryPage() {
               dateString: dateString,
               events: events
                 .filter((event: any) => event.event_date === dateStr)
-                // 👇 修復：改進排序邏輯。若無 start_time 則以 end_time 排序，皆無則排在最後面
                 .sort((a: any, b: any) => {
                   const timeA = a.start_time || a.end_time || '99:99';
                   const timeB = b.start_time || b.end_time || '99:99';
@@ -180,7 +179,7 @@ export default function ItineraryPage() {
     <main>
       <div className="notion-cover"></div>
       <div className="notion-page">
-        <div className="notion-icon-wrapper"><i className="fa-solid fa-plane"></i></div>
+        <div className="notion-icon-wrapper">✈️</div>
         <h1 className="notion-title">{currentItinerary?.title || '旅程檢視'}</h1>
 
         <div className="notion-controls">
@@ -200,7 +199,7 @@ export default function ItineraryPage() {
         {currentItinerary && currentItinerary.days.length > 0 && (
           <div>
             <div className="mobile-scroll-hint">
-              <i className="fa-solid fa-left-right"></i> 左右滑動查看其他天數
+              ↔ 左右滑動查看其他天數
             </div>
             
             <div className="notion-board-container">
@@ -231,7 +230,7 @@ export default function ItineraryPage() {
                         
                         <div className="notion-card-content">
                           <h3 className="notion-card-title">
-                            <i className={`fa-solid ${tagStyle.icon}`} style={{ color: '#9ca3af', fontSize: '0.9em', marginTop: '3px' }}></i>
+                            <span style={{ marginRight: '6px', fontSize: '0.95em' }}>{tagStyle.icon}</span>
                             {event.content}
                           </h3>
                           
@@ -241,14 +240,10 @@ export default function ItineraryPage() {
                                 {displayTime}
                               </span>
                             )}
-                            {event.category && (
-                              <span className="notion-tag">
-                                {event.category}
-                              </span>
-                            )}
+                            {/* 交通方式標籤：已移除所有圖示，僅顯示純文字 */}
                             {event.transportation && (
                               <span className="notion-tag">
-                                <i className="fa-solid fa-plane"></i> {event.transportation}
+                                {event.transportation}
                               </span>
                             )}
                           </div>

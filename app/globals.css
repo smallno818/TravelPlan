@@ -185,3 +185,20 @@ body {
   margin: 4px 0 0 0;
   line-height: 1.4;
 }
+
+/* === 新增：手機端橫向滑動提示 === */
+.mobile-scroll-hint {
+  display: none; /* 預設在電腦版隱藏，保持畫面乾淨 */
+  color: var(--notion-text-muted);
+  font-size: 0.85em;
+  margin-bottom: 12px;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 當螢幕寬度小於 768px (手機/小平板) 時才顯示 */
+@media (max-width: 768px) {
+  .mobile-scroll-hint {
+    display: flex; 
+  }
+}

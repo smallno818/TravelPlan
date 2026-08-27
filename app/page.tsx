@@ -37,7 +37,6 @@ const getCategoryStyle = (category: string) => {
   }
 };
 
-// 新增：將純文字中的網址轉換為超連結的輔助函式
 const renderTextWithLinks = (text: string) => {
   if (!text) return null;
   const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -194,91 +193,97 @@ export default function ItineraryPage() {
         </div>
 
         {currentItinerary && currentItinerary.days.length > 0 && (
-          <div className="notion-board-container">
-            {currentItinerary.days.map((day) => (
-              <div className="notion-board-column" key={day.dayNumber}>
-                <div className="notion-board-header">
-                  {day.title} {day.dateString}
-                </div>
-                
-                {day.events.map((event, index) => {
-                  const tagStyle = getCategoryStyle(event.category);
+          <div>
+            {/* 新增：手機版專屬的滑動提示，大螢幕時會自動隱藏 */}
+            <div className="mobile-scroll-hint">
+              <i className="fa-solid fa-left-right"></i> 左右滑動查看其他天數
+            </div>
+            
+            <div className="notion-board-container">
+              {currentItinerary.days.map((day) => (
+                <div className="notion-board-column" key={day.dayNumber}>
+                  <div className="notion-board-header">
+                    {day.title} {day.dateString}
+                  </div>
                   
-                  let displayTime = event.start_time;
-                  if (event.start_time && event.end_time) {
-                    displayTime = `${event.start_time} - ${event.end_time}`;
-                  }
-                  
-                  const uniqueNoteId = `${day.dayNumber}-${index}`;
-                  const isNoteExpanded = expandedNotes.has(uniqueNoteId);
-                  
-                  return (
-                    <div className="notion-card" key={index}>
-                      {event.image_url && (
-                        <img src={event.image_url} alt={event.content} className="notion-card-image" />
-                      )}
-                      
-                      <div className="notion-card-content">
-                        <h3 className="notion-card-title">
-                          <i className={`fa-solid ${tagStyle.icon}`} style={{ color: '#9ca3af', fontSize: '0.9em', marginTop: '3px' }}></i>
-                          {event.content}
-                        </h3>
+                  {day.events.map((event, index) => {
+                    const tagStyle = getCategoryStyle(event.category);
+                    
+                    let displayTime = event.start_time;
+                    if (event.start_time && event.end_time) {
+                      displayTime = `${event.start_time} - ${event.end_time}`;
+                    }
+                    
+                    const uniqueNoteId = `${day.dayNumber}-${index}`;
+                    const isNoteExpanded = expandedNotes.has(uniqueNoteId);
+                    
+                    return (
+                      <div className="notion-card" key={index}>
+                        {event.image_url && (
+                          <img src={event.image_url} alt={event.content} className="notion-card-image" />
+                        )}
                         
-                        <div className="notion-tags">
-                          {displayTime && (
-                            <span className="notion-tag">
-                              {displayTime}
-                            </span>
-                          )}
-                          {event.category && (
-                            <span className="notion-tag">
-                              {event.category}
-                            </span>
-                          )}
-                          {event.transportation && (
-                            <span className="notion-tag">
-                              <i className="fa-solid fa-plane"></i> {event.transportation}
-                            </span>
-                          )}
-                        </div>
-
-                        {event.notes && (
-                          <div style={{ marginTop: '6px' }}>
-                            <button
-                              onClick={() => toggleNote(uniqueNoteId)}
-                              style={{
-                                background: 'transparent',
-                                border: 'none',
-                                padding: '4px 0',
-                                color: 'var(--notion-text-muted)',
-                                fontSize: '0.85em',
-                                cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '6px',
-                                outline: 'none'
-                              }}
-                            >
-                              <span style={{ fontSize: '0.8em', width: '12px', textAlign: 'center' }}>
-                                {isNoteExpanded ? '▼' : '▶'}
+                        <div className="notion-card-content">
+                          <h3 className="notion-card-title">
+                            <i className={`fa-solid ${tagStyle.icon}`} style={{ color: '#9ca3af', fontSize: '0.9em', marginTop: '3px' }}></i>
+                            {event.content}
+                          </h3>
+                          
+                          <div className="notion-tags">
+                            {displayTime && (
+                              <span className="notion-tag">
+                                {displayTime}
                               </span>
-                              備註
-                            </button>
-                            
-                            {isNoteExpanded && (
-                              <p className="notion-meta" style={{ marginTop: '2px' }}>
-                                {/* 修改：使用輔助函式渲染備註內容 */}
-                                {renderTextWithLinks(event.notes)}
-                              </p>
+                            )}
+                            {event.category && (
+                              <span className="notion-tag">
+                                {event.category}
+                              </span>
+                            )}
+                            {event.transportation && (
+                              <span className="notion-tag">
+                                <i className="fa-solid fa-plane"></i> {event.transportation}
+                              </span>
                             )}
                           </div>
-                        )}
+
+                          {event.notes && (
+                            <div style={{ marginTop: '6px' }}>
+                              <button
+                                onClick={() => toggleNote(uniqueNoteId)}
+                                style={{
+                                  background: 'transparent',
+                                  border: 'none',
+                                  padding: '4px 0',
+                                  color: 'var(--notion-text-muted)',
+                                  fontSize: '0.85em',
+                                  cursor: 'pointer',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: '6px',
+                                  outline: 'none'
+                                }}
+                              >
+                                <span style={{ fontSize: '0.8em', width: '12px', textAlign: 'center' }}>
+                                  {isNoteExpanded ? '▼' : '▶'}
+                                </span>
+                                備註
+                              </button>
+                              
+                              {isNoteExpanded && (
+                                <p className="notion-meta" style={{ marginTop: '2px' }}>
+                                  {renderTextWithLinks(event.notes)}
+                                </p>
+                              )}
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>

@@ -214,6 +214,21 @@ export default function ItineraryPage() {
           >
             <span>🔗</span> 參考連結
           </a>
+          {/* 新增的參考資訊按鈕 */}
+          <a 
+            href={`/note?id=${selectedItineraryId}`} 
+            style={{ 
+              color: '#37352f', 
+              textDecoration: 'none', 
+              fontSize: '0.9em', 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '6px', 
+              fontWeight: '500' 
+            }}
+          >
+            <span>📝</span> 旅遊筆記
+          </a>
         </div>
 
         {currentItinerary && currentItinerary.days.length > 0 && (
